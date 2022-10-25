@@ -1,8 +1,10 @@
+//requiring the modules
 const express = require('express')
 const router = express.Router()
-const Blockchains = require('./models/blockchains')
+const Blockchains = require('../models/blockchains')
 const {CustomAPIError} = require('../error/custom_error')
-//const blockchains = require('./models/blockchains')
+const catchAsync = require('./catchAsync')
+//const blockchains = require('./odels/blockchains')
 
 //get request
 
@@ -19,16 +21,18 @@ router.get('/',async(req,res)=>{
 })
 //get request ID
 
-router.get('/:id',async(req,res)=>{
+router.get('/:id',(async(req,res,next)=>{
     //try{
-        const { id:courseID}=req.params
-        const blockchains= await Blockchains.findOne({_id:courseID})
+        //const { id:courseID}=req.params
+        const id = req.params.id
+        const blockchains= await Blockchains.findById(id)
+        console.log(blockchains)
         //res.json(blockchains)
         if(!blockchains)
         {
-            throw new CustomAPIError(`no courses with this id:${courseID}`,404)
+            throw new CustomAPIError(`no courses with this id:${id}`,404)
         }
-        res.json({blockchains})
+        res.json(blockchains)
         
   //  }
     //catch(err){
@@ -37,6 +41,7 @@ router.get('/:id',async(req,res)=>{
     
 
 })
+)
 
 
 
@@ -66,11 +71,11 @@ try{
 
 router.patch('/:id',async(req,res)=>{
     try{
-        const id=req.params
-        const blockchains = await Blockchains.findOneAndUpdate(id,req.body,{new:true})
+        const id=req.params.id
+        const blockchains = await Blockchains.findOneAndUpdate({id}, req.body,{new:true})
       //  blockchains.sub = req.body.sub
         //const a1 = await blockchains.save()
-        res.json(a1)
+        res.json(blockchains)
     }catch(err){
         res.send('Error')
     }
@@ -88,6 +93,6 @@ router.delete('/:id',async(req,res)=>{
 })
 
     
-
+//module export
 
 module.exports=router

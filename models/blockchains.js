@@ -1,5 +1,6 @@
 const mongoose= require('mongoose')
-
+//Rrequiring mongoose
+//schema architecture
 
 const blockchainsSchema = new mongoose.Schema({
             course:{
@@ -16,5 +17,6 @@ const blockchainsSchema = new mongoose.Schema({
                 default:false
             }
 })
+//modele exporting
 
 module.exports=mongoose.model('Blockchains',blockchainsSchema)

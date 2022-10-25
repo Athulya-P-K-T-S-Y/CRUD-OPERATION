@@ -1,15 +1,15 @@
 const express = require('express')
 const app = express()
-//require("express-async-errors")
+require("express-async-errors")
 const mongoose = require('mongoose')
 
 
 const errorHandleMiddleware = require('./middleware/error_handler')
-//require("dotenv").config()
+require("dotenv").config()
 
-const db="mongodb://localhost/BlockchainDBex"
+//const db="mongodb://localhost/BlockchainDBex"
 //mongoose.connect(process.env.URL,{useNewUrlParser:true})
-mongoose.connect(db,{useNewUrlParser:true})
+mongoose.connect(process.env.URL,{useNewUrlParser:true})
 
 
 //console.log(process.env.URL)
@@ -19,11 +19,12 @@ con.on("open",()=>{
     console.log('connected..')
 })
 app.use(express.json())
-
+const authrouter = require('./routes/auth')
 const blockchainsRouter = require('./routes/blockchain')
+app.use('/', authrouter)
 app.use('/blockchain',blockchainsRouter)
 app.use(errorHandleMiddleware)
-const port=process.env.PORT||3000
+const port=process.env.PORT||4000
 app.listen(port, ()=>{
     console.log('server started')
 })
