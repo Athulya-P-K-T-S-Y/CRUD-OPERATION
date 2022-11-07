@@ -1,18 +1,18 @@
+
+//requiring the modules
 const express = require('express')
 const app = express()
 require("express-async-errors")
 const mongoose = require('mongoose')
-
-
 const errorHandleMiddleware = require('./middleware/error_handler')
 require("dotenv").config()
 
 //const db="mongodb://localhost/BlockchainDBex"
-//mongoose.connect(process.env.URL,{useNewUrlParser:true})
+//connecting the env url
 mongoose.connect(process.env.URL,{useNewUrlParser:true})
 
 
-//console.log(process.env.URL)
+
 const con = mongoose.connection
 
 con.on("open",()=>{
@@ -25,6 +25,7 @@ app.use('/', authrouter)
 app.use('/blockchain',blockchainsRouter)
 app.use(errorHandleMiddleware)
 const port=process.env.PORT||4000
+console.log(port)
 app.listen(port, ()=>{
     console.log('server started')
 })

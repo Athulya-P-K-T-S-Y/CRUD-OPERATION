@@ -1,11 +1,12 @@
+//requiring the modules 
 const express = require("express");
 const router = express.Router();
-
 const { register, login } = require("../controller/auth");
+const {userScheme,loginSchema} = require('../middleware/joi_validation')
 
-const validation_middleware = require("../middleware/validation_middleware")
+//post operation for redister and login
+router.post("/register",userScheme, register);
+router.post("/login" ,loginSchema, login);
 
-router.post("/register",validation_middleware('register'),register);
-router.post("/login",validation_middleware('login') ,login);
-
+//exporting the modules
 module.exports = router;

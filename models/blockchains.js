@@ -1,7 +1,7 @@
-const mongoose= require('mongoose')
 //Rrequiring mongoose
-//schema architecture
+const mongoose= require('mongoose')
 
+//schema architecture
 const blockchainsSchema = new mongoose.Schema({
             course:{
                 type:String,
@@ -16,7 +16,7 @@ const blockchainsSchema = new mongoose.Schema({
                 required:true,
                 default:false
             }
-})
-//modele exporting
+},{versionKey:false})
 
+//modele exporting
 module.exports=mongoose.model('Blockchains',blockchainsSchema)
