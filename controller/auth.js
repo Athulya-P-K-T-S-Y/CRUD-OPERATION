@@ -68,11 +68,10 @@ return responseHelper.success(res,bala)
 
 //wallet transfer from one account to another
 const transfer= async (req,res)=>{
-
 const account2 = req.body.account2// Your account address 1,sender
 const account1 = req.body.account1 // Your account address 2,receiver
 
-const privateKey1 = 'f967fe00142396054e45a63ce193ea2feec2ebdefe08e80c0a3bc8ffb6243275' // Private key of account 2
+const privateKey1 = process.env.PRIVATE_KEY // Private key of account 2
 const wallet = new ethers.Wallet(privateKey1, provider)
 
 
@@ -82,7 +81,7 @@ const recieverBalanceBefore = await provider.getBalance(account1) //show account
 const senderBefore = `${ethers.utils.formatEther(senderBalanceBefore)}`
 const receiverBefore = `${ethers.utils.formatEther(recieverBalanceBefore)}`
 
-//send ether
+//send etherss
 const tx = await wallet.sendTransaction({
   to: account1,
   value: ethers.utils.parseEther((req.body.amount).toString())
