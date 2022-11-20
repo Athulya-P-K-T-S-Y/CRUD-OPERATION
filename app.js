@@ -6,6 +6,8 @@ require("express-async-errors")
 const mongoose = require('mongoose')
 const errorHandleMiddleware = require('./middleware/error_handler')
 require("dotenv").config()
+//const authenticateUser = require('./middleware/authentication');
+
 
 //const db="mongodb://localhost/BlockchainDBex"
 //connecting the env url
